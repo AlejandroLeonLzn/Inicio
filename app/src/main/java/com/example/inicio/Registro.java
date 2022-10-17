@@ -20,18 +20,26 @@ public class Registro extends AppCompatActivity {
         edtUsrR=findViewById(R.id.edtUsrR);
     }
     public void alta(View v) {
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this,
-                "administracion", null, 1);
-        SQLiteDatabase bd = admin.getWritableDatabase();
-        String usu = edtUsrR.getText().toString();
-        String pas = edtPassR.getText().toString();
-        ContentValues registro = new ContentValues();
-        registro.put("usuario", usu);
-        registro.put("password", pas);
-        bd.insert("persona", null, registro);
-        bd.close();
-        Toast.makeText(this, "Se cargaron los datos del usuario",
-                Toast.LENGTH_SHORT).show();
+        if (edtUsrR.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Ingrese un usuario",
+                    Toast.LENGTH_SHORT).show();
+        } else if(edtPassR.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Ingrese una contraseña",
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this,
+                    "administracion", null, 1);
+            SQLiteDatabase bd = admin.getWritableDatabase();
+            String usu = edtUsrR.getText().toString();
+            String pas = edtPassR.getText().toString();
+            ContentValues registro = new ContentValues();
+            registro.put("usuario", usu);
+            registro.put("password", pas);
+            bd.insert("persona", null, registro);
+            bd.close();
+            Toast.makeText(this, "Se cargaron los datos del usuario",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void regresar (View view){
